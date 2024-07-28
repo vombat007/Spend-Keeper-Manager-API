@@ -85,7 +85,7 @@ class Category(models.Model):
     user = models.ForeignKey(User, on_delete=models.CASCADE, related_name='categories')
     name = models.CharField(max_length=100)
     type = models.CharField(max_length=20, choices=CATEGORY_TYPE_CHOICES)
-    picture = models.ImageField(upload_to='category_pics/', null=True, blank=True)
+    icon = models.CharField(max_length=255, null=True, blank=True)
     description = models.TextField()
 
     class Meta:
