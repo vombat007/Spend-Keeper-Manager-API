@@ -31,6 +31,10 @@ class TransactionSerializer(serializers.ModelSerializer):
         model = Transaction
         fields = ["amount", "account", "category", "note", "datetime"]
 
+    def create(self, validated_data):
+        # Ensure datetime is handled correctly
+        return Transaction.objects.create(**validated_data)
+
     def update(self, instance, validated_data):
         new_amount = validated_data.get('amount', instance.amount)
         if abs(instance.amount) == abs(new_amount):

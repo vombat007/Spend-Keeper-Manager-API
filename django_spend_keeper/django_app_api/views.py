@@ -74,7 +74,10 @@ class TransactionListCreateView(generics.ListCreateAPIView):
         user = self.request.user
         if not Account.objects.filter(user=user).exists():
             raise ValidationError("User must have at least one account to create a transaction.")
-        serializer.save(user=user)
+
+        # Check if datetime is provided; if not, use the current datetime
+        datetime_value = serializer.validated_data.get('datetime', datetime.now())
+        serializer.save(user=user, datetime=datetime_value)
 
 
 class TransactionDetailView(generics.RetrieveUpdateDestroyAPIView):

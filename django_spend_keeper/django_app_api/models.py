@@ -101,7 +101,7 @@ class Transaction(models.Model):
     account = models.ForeignKey(Account, on_delete=models.CASCADE)
     category = models.ForeignKey(Category, on_delete=models.CASCADE)
     note = models.TextField(blank=True)
-    datetime = models.DateTimeField(auto_now_add=True)
+    datetime = models.DateTimeField()
 
     def save(self, *args, **kwargs):
         if self.category.type == Category.EXPENSE and self.amount > 0:
