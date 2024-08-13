@@ -86,7 +86,6 @@ class Category(models.Model):
     name = models.CharField(max_length=100)
     type = models.CharField(max_length=20, choices=CATEGORY_TYPE_CHOICES)
     icon = models.CharField(max_length=255, null=True, blank=True)
-    description = models.TextField()
 
     class Meta:
         unique_together = ('user', 'name', 'type')
