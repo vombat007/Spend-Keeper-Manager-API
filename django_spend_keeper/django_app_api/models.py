@@ -2,6 +2,7 @@ from django.contrib.auth.base_user import BaseUserManager, AbstractBaseUser
 from django.contrib.auth.models import PermissionsMixin
 from django.core.exceptions import ValidationError
 from django.db import models, IntegrityError
+from cloudinary.models import CloudinaryField
 
 
 class MyUserManager(BaseUserManager):
@@ -85,7 +86,7 @@ class Category(models.Model):
     user = models.ForeignKey(User, on_delete=models.CASCADE, related_name='categories')
     name = models.CharField(max_length=100)
     type = models.CharField(max_length=20, choices=CATEGORY_TYPE_CHOICES)
-    icon = models.CharField(max_length=255, null=True, blank=True)
+    icon = CloudinaryField('icon', null=True, blank=True)
 
     class Meta:
         unique_together = ('user', 'name', 'type')
