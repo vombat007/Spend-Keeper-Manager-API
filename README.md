@@ -29,7 +29,6 @@ From managing recurring expenses to planning for long-term financial objectives,
 - **Customizable Reports:** Create reports to visualize and manage your finances.
 - **Recurring Expenses:** Keep track of regular expenses effortlessly.
 - **Long-term Planning:** Plan and achieve your long-term financial objectives.
-- **Cloudinary Integration:** Store and manage expense-related images securely in the cloud.
 
 ---
 
