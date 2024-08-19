@@ -1,5 +1,5 @@
-from django.urls import path
 from . import views
+from django.urls import path
 from rest_framework_simplejwt.views import TokenObtainPairView, TokenRefreshView, TokenVerifyView
 from drf_spectacular.views import SpectacularAPIView, SpectacularSwaggerView, SpectacularRedocView
 from .views import RegisterView, AccountsListView, CategoryListCreateView, SavingCreateView, AccountSummaryView
