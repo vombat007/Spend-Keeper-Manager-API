@@ -12,6 +12,8 @@ from rest_framework_simplejwt.tokens import RefreshToken
 from .serializers import UserSerializer, AccountSerializer
 from rest_framework_simplejwt.authentication import JWTAuthentication
 from .serializers import TransactionSerializer, CategorySerializer, SavingSerializer
+import cloudinary.api
+import cloudinary.uploader
 
 
 class LogoutView(APIView):
@@ -127,6 +129,46 @@ class CategoryDetailView(generics.RetrieveUpdateDestroyAPIView):
 class SavingCreateView(generics.CreateAPIView):
     serializer_class = SavingSerializer
     permission_classes = [IsAuthenticated]
+
+
+class CloudinaryResourceList(APIView):
+    permission_classes = [IsAuthenticated]
+
+    def get(self, request, *args, **kwargs):
+        try:
+            # Fetch resources recursively, including subfolders
+            resources = []
+            next_cursor = None
+            while True:
+                result = cloudinary.api.resources(
+                    type='upload',
+                    prefix='spend_keeper/all_category_icon/',
+                    max_results=500,
+                    next_cursor=next_cursor
+                )
+                resources.extend(result.get('resources', []))
+                next_cursor = result.get('next_cursor')
+                if not next_cursor:
+                    break
+
+            return Response({"resources": resources})
+        except Exception as e:
+            return Response({"error": str(e)}, status=500)
+
+
+class UploadIconView(APIView):
+    permission_classes = [IsAuthenticated]
+
+    def post(self, request, *args, **kwargs):
+        file = request.FILES.get('file')
+        if not file:
+            return Response({"error": "No file provided"}, status=400)
+
+        try:
+            upload_result = cloudinary.uploader.upload(file, folder='spend_keeper/custom_category_icons/')
+            return Response({"secure_url": upload_result.get("secure_url")}, status=201)
+        except Exception as e:
+            return Response({"error": str(e)}, status=500)
 
 
 class AccountSummaryView(APIView):
