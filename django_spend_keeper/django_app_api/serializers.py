@@ -1,5 +1,5 @@
 from rest_framework import serializers
-from .models import User, Account, Transaction, Category, Saving
+from .models import User, Account, Transaction, Category, Saving, Currency
 
 
 class UserSerializer(serializers.ModelSerializer):
@@ -15,9 +15,11 @@ class UserSerializer(serializers.ModelSerializer):
 
 
 class AccountSerializer(serializers.ModelSerializer):
+    currency = serializers.SlugRelatedField(slug_field='name', queryset=Currency.objects.all())
+
     class Meta:
         model = Account
-        fields = ["id", "name", "total_balance"]
+        fields = ["id", "name", "total_balance", "currency"]
 
 
 class CategorySerializer(serializers.ModelSerializer):

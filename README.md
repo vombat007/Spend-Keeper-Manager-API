@@ -29,6 +29,7 @@ From managing recurring expenses to planning for long-term financial objectives,
 - **Customizable Reports:** Create reports to visualize and manage your finances.
 - **Recurring Expenses:** Keep track of regular expenses effortlessly.
 - **Long-term Planning:** Plan and achieve your long-term financial objectives.
+- **Cloudinary Integration:** Store and manage expense-related images securely in the cloud.
 
 ---
 
@@ -36,6 +37,11 @@ From managing recurring expenses to planning for long-term financial objectives,
 
 ```bash
 python manage.py runserver --settings=django_spend_keeper.settings.dev 
+```
+
+### Populate database with currency
+```bash
+python manage.py populate_currencies --settings=django_spend_keeper.settings.dev
 ```
 
 ## See url of documentation

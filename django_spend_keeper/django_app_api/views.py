@@ -47,11 +47,9 @@ class AccountsListView(generics.ListCreateAPIView):
     serializer_class = AccountSerializer
 
     def get_queryset(self):
-        # Retrieve all Account instances associated with the authenticated user
         return Account.objects.filter(user=self.request.user)
 
     def perform_create(self, serializer):
-        # Associate the authenticated user with the newly created Account instance
         serializer.save(user=self.request.user)
 
 

@@ -66,13 +66,22 @@ class User(AbstractBaseUser, PermissionsMixin):
         app_label = 'django_app_api'
 
 
+class Currency(models.Model):
+    name = models.CharField(max_length=3, unique=True)  # e.g., 'USD', 'EUR'
+    symbol = models.CharField(max_length=5)  # e.g., '$', '€'
+
+    def __str__(self):
+        return f"{self.name} ({self.symbol})"
+
+
 class Account(models.Model):
     user = models.ForeignKey(User, on_delete=models.CASCADE, related_name='account')
     name = models.CharField(max_length=100)
     total_balance = models.DecimalField(max_digits=15, decimal_places=2, default=0)
+    currency = models.ForeignKey(Currency, on_delete=models.PROTECT, related_name='accounts')
 
     def __str__(self):
-        return self.name
+        return f"{self.name} ({self.currency.symbol})"
 
 
 class Category(models.Model):
