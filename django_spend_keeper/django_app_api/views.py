@@ -5,7 +5,7 @@ from datetime import timedelta, datetime
 from rest_framework.views import APIView
 from rest_framework import generics, status
 from rest_framework.response import Response
-from .models import Account, Category, Transaction
+from .models import Account, Category, Transaction, Currency
 from rest_framework.exceptions import ValidationError
 from rest_framework.permissions import IsAuthenticated
 from rest_framework_simplejwt.tokens import RefreshToken
@@ -62,6 +62,13 @@ class AccountDetailView(generics.RetrieveUpdateDestroyAPIView):
     def get_queryset(self):
         # Filter accounts based on the authenticated user and account ID
         return self.queryset.filter(user=self.request.user, id=self.kwargs['pk'])
+
+
+class CurrencyListView(APIView):
+    def get(self, request):
+        currencies = Currency.objects.all()
+        data = [{"name": currency.name, "symbol": currency.symbol} for currency in currencies]
+        return Response(data)
 
 
 class TransactionListCreateView(generics.ListCreateAPIView):

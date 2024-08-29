@@ -2,7 +2,7 @@ from . import views
 from django.urls import path
 from rest_framework_simplejwt.views import TokenObtainPairView, TokenRefreshView, TokenVerifyView
 from drf_spectacular.views import SpectacularAPIView, SpectacularSwaggerView, SpectacularRedocView
-from .views import AccountSummaryView, CloudinaryResourceList, UploadIconView
+from .views import AccountSummaryView, CloudinaryResourceList, UploadIconView, CurrencyListView
 from .views import RegisterView, AccountsListView, CategoryListCreateView, LogoutView
 from .views import AccountDetailView, TransactionListCreateView, TransactionDetailView
 
@@ -16,6 +16,8 @@ urlpatterns = [
     path('api/login/verify/', TokenVerifyView.as_view(), name='token_verify'),
 
     path('api/logout/', LogoutView.as_view(), name='auth_logout'),
+
+    path('api/currencies/', CurrencyListView.as_view(), name='currency-list'),
 
     path('api/accounts/', AccountsListView.as_view(), name='user-account-detail'),
     path('api/account/<int:pk>/', AccountDetailView.as_view(), name='account-detail'),
