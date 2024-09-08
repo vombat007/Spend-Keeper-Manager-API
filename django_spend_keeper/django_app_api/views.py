@@ -244,7 +244,8 @@ class AccountSummaryView(APIView):
             'total_balance': account.total_balance,
             'income': income,
             'expense': abs(expense),  # Ensure expense is positive for the response
-            'percent_spent': round(percent_spent)
+            'percent_spent': round(percent_spent),
+            'currency_symbol': account.currency.symbol  # Include currency symbol
         }
 
         return Response(data)
